@@ -35,4 +35,6 @@ public interface Assignment4Interface
      * @return True if the word ladder is correct, false otherwise.
      */
     boolean validateResult(String startWord, String endWord, List<String> wordLadder);
+    
+    boolean makeLadder(String startWord, String endWord, int Index);
 }
