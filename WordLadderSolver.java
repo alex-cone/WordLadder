@@ -49,8 +49,8 @@ public class WordLadderSolver implements Assignment4Interface {
 		}
 		solutionList.add(startWord);
 		boolean complete = false;
-		for (int i = 0; i <= 4; i++) {
-			if (i != Index) {
+	//	for (int i = 0; i <= 4; i++) {
+			//if (i != Index) {
 				for (int q = 0; q < solutionList.size(); q++) {
 					for (int j = 0; j < wordList.wordList.size(); j++) {
 						if (complete == false) {
@@ -82,7 +82,7 @@ public class WordLadderSolver implements Assignment4Interface {
 					}
 				}
 				if(complete == false){
-					for (int k = 0; k < candidate.size();) {
+					for (int k = 0; k < candidate.size(); k++) {
 						String temp2 = candidate.get(k).substring(1);
 						for (int l = 0; l < temp2.length(); l++) {
 							if (startWord.charAt(l) != temp2.charAt(l)) {
@@ -91,7 +91,7 @@ public class WordLadderSolver implements Assignment4Interface {
 						} 
 						if(makeLadder(temp2, endWord, Index) == false){
 							solutionList.remove(solutionList.size() - 1);
-							break;
+							//break;
 						}
 						else{
 							return true;
@@ -99,8 +99,8 @@ public class WordLadderSolver implements Assignment4Interface {
 					}
 					return false;
 				}
-			}
-		}
+		//	}
+		//}
 		/*
 		for(int i = 0; i < solutions.size(); i++){
 			System.out.print(solutions.get(i));
