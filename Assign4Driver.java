@@ -45,8 +45,12 @@ public class Assign4Driver
     {
     	String startingWord = "";
     	String endingWord = "";
-    	startingWord = input.substring(0,5);
-    	input = input.substring(5);
+    	if(input.indexOf(' ')==-1){
+    		System.err.println("Error: Invalid input");
+    		return;
+    	}
+    	startingWord = input.substring(0,input.indexOf(' '));
+    	input = input.substring(input.indexOf(' '));
     	int i = 0;
     	if(input.indexOf(' ')!=-1)
     	{    		
@@ -63,17 +67,11 @@ public class Assign4Driver
        	ArrayList<String> solutions = new ArrayList<String>();
     	Assignment4Interface wordLadderSolver = new WordLadderSolver(startingWord, endingWord, wordList, solutions);
     	endingWord = input.substring(i);
-    	wordLadderSolver.makeLadder(startingWord, endingWord, -1);
-    	System.out.println("DONE");
-    	/*
-        try 
-        {
-            List<String> result = wordLadderSolver.computeLadder("money", "honey");
-            boolean correct = wordLadderSolver.validateResult("money", "honey", result);
-        } 
-        catch (NoSuchLadderException e) 
-        {
-            e.printStackTrace();
-        }*/
-    }
-}
+    	try{
+    		wordLadderSolver.computeLadder(startingWord, endingWord);
+    		boolean correct = wordLadderSolver.validateResult(startingWord, endingWord, solutions);
+    	}
+    	catch(NoSuchLadderException e){
+    		System.err.println(e);
+    	}
+}}

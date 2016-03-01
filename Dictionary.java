@@ -38,8 +38,9 @@ public class Dictionary {
     		System.exit(-1);
     	}
 	}
-	public boolean isValid(String check)
+	public boolean isValid(String check) throws InvalidWordException
 	{
+		InvalidWordException wrong = new InvalidWordException("The word " + check + " is not a valid word in the dictionary.");
 		for(int i = 0; i < wordList.size(); i ++)
 		{
 			if(check.compareTo(wordList.get(i))==0)
@@ -47,11 +48,11 @@ public class Dictionary {
 				return true;
 			}
 		}
-		return false;
+		throw wrong;
 	}
 	public boolean stringDifference(String word1, String word2, int index)
 	{
-		if(index!=-1 && word1.charAt(index) != word2.charAt(index))
+		if(index!=-1 && (word1.charAt(index) != word2.charAt(index)))
 		{
 			return false;
 		}
