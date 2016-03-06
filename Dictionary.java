@@ -8,7 +8,11 @@ import java.io.IOException;
 
 public class Dictionary {
 	
-	ArrayList<String> wordList;
+	protected ArrayList<String> wordList;
+	/*
+	 * @param String of file name
+	 * Creates a dictionary object by parsing 5 letter words from the file, ignoring lines that start with "*".
+	 */
 	public Dictionary(String words)
 	{
 		ArrayList<String> wordSet = new ArrayList<String>();
@@ -38,6 +42,12 @@ public class Dictionary {
     		System.exit(-1);
     	}
 	}
+	/*
+	 * @param String of 5 letter word
+	 * Checks if the word is in the dictionary
+	 * @returns True if the word is in the dictionary, false if the word is not in the dictionary
+	 * Throws InvalidWordException if the word does not exist in the dictionary
+	 */
 	public boolean isValid(String check) throws InvalidWordException
 	{
 		InvalidWordException wrong = new InvalidWordException("The word " + check + " is not a valid word in the dictionary.");
@@ -50,6 +60,11 @@ public class Dictionary {
 		}
 		throw wrong;
 	}
+	/*
+	 * @param 2 5 letter word strings, index
+	 * @returns True if the word only is different from the other word by the char at index, 
+	 * false if the word is different from the other word by more than one
+	 */
 	public boolean stringDifference(String word1, String word2, int index)
 	{
 		if(index!=-1 && (word1.charAt(index) != word2.charAt(index)))
@@ -91,6 +106,11 @@ public class Dictionary {
 			}
 		}
 	}
+	/*
+	 * @param 2 5 letter words
+	 * Counts the difference between two words
+	 * @returns the number difference between the two words
+	 */
 	public int changedDifference(String word1, String word2)
 	{
 		int count = 0;

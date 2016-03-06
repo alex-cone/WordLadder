@@ -35,6 +35,12 @@ public interface Assignment4Interface
      * @return True if the word ladder is correct, false otherwise.
      */
     boolean validateResult(String startWord, String endWord, List<String> wordLadder);
-    
+    /**
+     * Recursive method to solve the word ladder if possible.
+     * @param startWord
+     * @param endWord
+     * @param Index
+     * @return True if word ladder is found, false if no word ladder is found for the candidate word.
+     */
     boolean makeLadder(String startWord, String endWord, int Index);
 }

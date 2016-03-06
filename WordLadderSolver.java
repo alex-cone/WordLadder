@@ -10,15 +10,14 @@ import java.util.*;
 // do not change class name or interface it implements
 public class WordLadderSolver implements Assignment4Interface {
 	// delcare class members here.
-	int lastChangedIndex;
-	String beginningWord;
-	String endingWord;
-	Dictionary wordList;
-	ArrayList<String> solutionList;
+	private String beginningWord;
+	private String endingWord;
+	private Dictionary wordList;
+	private List<String> solutionList;
 
 	// add a constructor for this object. HINT: it would be a good idea to set
 	// up the dictionary there
-	public WordLadderSolver(String startWord, String endWord, Dictionary words, ArrayList<String> solutions) {
+	public WordLadderSolver(String startWord, String endWord, Dictionary words, List<String> solutions) {
 		beginningWord = startWord;
 		endingWord = endWord;
 		wordList = words;
@@ -28,7 +27,15 @@ public class WordLadderSolver implements Assignment4Interface {
 	// do not change signature of the method implemented from the interface
 	@Override
 	public List<String> computeLadder(String startWord, String endWord) throws NoSuchLadderException {
-		// implement this method
+		//solves word ladder returns list of word ladder, throws NoSuchLadderException if there is no possible word ladder
+		NoSuchLadderException invalid = new NoSuchLadderException("At least one of the words " + startWord + " and " + endWord + " are not legitimate 5-letter words from the dictionary.");
+		try{
+			wordList.isValid(startWord);
+			wordList.isValid(endWord);
+		}
+		catch(InvalidWordException e){
+			throw invalid;
+		}
 		NoSuchLadderException error = new NoSuchLadderException("Error: There is no word ladder between " + startWord + " and " + endWord + ".");
 		if(makeLadder(startWord, endWord, -1) == false)
 		{
@@ -39,29 +46,26 @@ public class WordLadderSolver implements Assignment4Interface {
 			return solutionList;
 		}
 	}
-
+	//check if the word ladder is correct
 	@Override
 	public boolean validateResult(String startWord, String endWord, List<String> wordLadder) {
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if(wordLadder.get(0).equals(startWord) && wordLadder.get(wordLadder.size()-1).equals(endWord)){
+			for(int i = 0; i < wordLadder.size()-1; i++){
+				if(wordList.changedDifference(wordLadder.get(i), wordLadder.get(i+1))!=1){
+					return false;
+				}
+			}
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
-	// add additional methods here
+	//recursively solves the word ladder from startWord to endWord. Index saves the last changed index.
+	//Returns false if no word ladder for that candidate, returns true when a word ladder is found
 	public boolean makeLadder(String startWord, String endWord, int Index) {
 		ArrayList<String> candidate = new ArrayList<String>();
-		try{
-			wordList.isValid(startWord);
-			wordList.isValid(endWord);
-		}
-		catch(InvalidWordException e){
-			System.err.println("At least one of the words " + startWord + " and " + endWord + " are not legitimate 5-letter words from the dictionary.");
-			return false;
-		}/*
-		if (!wordList.isValid(startWord)) {
-			return false;
-		}
-		if (!wordList.isValid(endWord)) {
-			return false;
-		}*/
 		if(startWord.equals(endWord)){
 			solutionList.add(startWord);
 			solutionList.add(endWord);
@@ -117,7 +121,7 @@ public class WordLadderSolver implements Assignment4Interface {
 		}
 		return true;
 	}
-
+	//sorts the candidate list
 	class candidateCompare implements Comparator<String> {
 		public int compare(String word1, String word2) {
 			return word1.compareTo(word2);

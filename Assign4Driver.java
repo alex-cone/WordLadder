@@ -70,8 +70,14 @@ public class Assign4Driver
     	try{
     		wordLadderSolver.computeLadder(startingWord, endingWord);
     		boolean correct = wordLadderSolver.validateResult(startingWord, endingWord, solutions);
+    		System.out.println("For the input words \"" + startingWord + "\" and " + "\"" + endingWord + "\" the following word ladder was found");
+    		for(int q = 0; q < solutions.size(); q++){
+    			System.out.print(solutions.get(q) + " ");
+    		}
+    		System.out.println("\n**********");
     	}
     	catch(NoSuchLadderException e){
     		System.err.println(e);
     	}
-}}
+    }
+}
